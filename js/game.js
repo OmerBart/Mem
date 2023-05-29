@@ -342,6 +342,46 @@ function stopWatch() {
   //Display the stopwatch
   elTimeSpan.innerText = `${displayHours}:${displayMinutes}:${displaySeconds}.${displayMiliSeconds}`;
 }
+function timer() {
+  //check if i flipped all cards, if so we stop the clock
+  if (flippedCards === TOTAL_CARD_PAIRS) {
+    clearInterval(interval);
+    console.log("interval cleaned");
+  }
+  miliSeconds -= 10;
+  if (miliSeconds <= 10) {
+    miliSeconds = 990;
+    counter--;
+    console.log("counter is", counter);
+    seconds--;
+    //if seconds /60 is 1 then rest seconds
+    if (seconds === 0) {
+      seconds = 60;
+      //start increment minutes
+      minutes--;
+      //if minutes / 60 is 1 then minutes also rest
+      if (minutes === 0) {
+        if (hours === 1) {
+          minutes = 60;
+          hours = 0;
+        }
+        else if (hours > 0) {
+          hours--;
+        }
+
+      }
+    }
+  }
+  //add a leading 0 if seconds/minutes/hours is a 1 digit
+  let displayMiliSeconds = `${miliSeconds > 90 ? miliSeconds : `0${miliSeconds}`
+  }`;
+  let displaySeconds = `${seconds < 10 ? `0${seconds}` : `${seconds}`}`;
+  let displayMinutes = `${minutes < 10 ? `0${minutes}` : `${minutes}`}`;
+  let displayHours = `${hours < 10 ? `0${hours}` : `${hours}`}`;
+
+  //Display the stopwatch
+  elTimeSpan.innerText = `${displayHours}:${displayMinutes}:${displaySeconds}.${displayMiliSeconds}`;
+}
 
 //Show the cards for a X amount of seconds in the beginning when we pick a mode.
 function showCards(amountOfSeconds) {
@@ -494,6 +534,17 @@ function pickMode(btn) {
 
       gameMode = 4;
       TOTAL_CARD_PAIRS = 15
+      let countDownTime = prompt(`Please Enter your time in seconds`);
+        if (countDownTime === null) {
+            alert("Please enter a number");
+            return;
+        }
+        if (countDownTime === "") {
+            alert("Please enter a number");
+            return;
+        }
+        //take input seconds and calcuate how many hours and minutes and seconds the user entered
+
       elGameModeSpan.innerText = `Harder`;
       elBestScoreSpan.innerText = formatCounterToTime(
           localStorage.getItem("bestScoreHard")
