@@ -490,6 +490,39 @@ function pickMode(btn) {
         pickModeContainer.classList.remove("show");
       });
       break;
+    case "countdown":
+
+      gameMode = 4;
+      TOTAL_CARD_PAIRS = 15
+      elGameModeSpan.innerText = `Harder`;
+      elBestScoreSpan.innerText = formatCounterToTime(
+          localStorage.getItem("bestScoreHard")
+      );
+      elWorstScoreSpan.innerText = formatCounterToTime(
+          localStorage.getItem("worstScoreHard")
+      );
+      showCards(1500);
+      elAllCards.forEach((card) => {
+        let dataCard = card.getAttribute("data-card");
+        let possibleCards = "123456789101112131415";
+        if (possibleCards.includes(dataCard)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+        if (
+            card.classList.contains("medium-mode") ||
+            card.classList.contains("small-mode") ||
+            card.classList.contains("large-mode")
+        ) {
+          card.classList.remove("large-mode");
+          card.classList.remove("medium-mode");
+          card.classList.remove("small-mode");
+        }
+        card.classList.add("large-mode");
+        pickModeContainer.classList.remove("show");
+      });
+        break;
   }
 }
 
