@@ -175,8 +175,12 @@
             <button id="medium" onclick="pickMode(this)">Medium</button>
             <button id="large" onclick="pickMode(this)">Hard</button>
             <button id="countdown" onclick="pickMode(this)">Countdown</button>
-
+            <form onsubmit="onCustompairs()" class="costum-pairs">
+                <input type="text" name="pairs" placeholder="Min 2 pairs Max 15"/>
+            </form>
         </div>
+
+
     </div>
     <script src="js/game.js"></script>
 </body>
