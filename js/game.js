@@ -30,8 +30,8 @@ let interval = null;
 //game mode
 let gameMode = null;
 
-elAllCards.forEach((card) => {
-    card.style.display = "none";
+elAllCards.each((card) => {
+    card.css("display",  "none");
 });
 
 function cardClicked(elCard) {
@@ -97,7 +97,7 @@ function restartGame() {
     //Shuffle the cards
     shuffleCards();
     //Flip all the cards back and remove the found class from all
-    elAllCards.forEach((card) => {
+    elAllCards.each((card) => {
         card.removeClass("flipped");
         card.removeClass("found");
     });
@@ -287,7 +287,7 @@ if (localStorage.getItem("name") === null) {
 
 /*Shuffle all Cards in random positions!*/
 function shuffleCards() {
-    elAllCards.forEach((card) => {
+    elAllCards.each((card) => {
         //generate a random num
         let randPosition = Math.floor(Math.random() * elAllCards.length);
         card.style.order = `${randPosition}`;
@@ -336,11 +336,11 @@ function stopWatch() {
 
 //Show the cards for a X amount of seconds in the beginning when we pick a mode.
 function showCards(amountOfSeconds) {
-    elAllCards.forEach((card) => {
+    elAllCards.each((card) => {
         card.addClass("flipped");
     });
     setTimeout(() => {
-        elAllCards.forEach((card) => {
+        elAllCards.each((card) => {
             card.removeClass("flipped");
         });
     }, amountOfSeconds);
@@ -361,14 +361,14 @@ function cheat(btn) {
         isCheated = true;
         //fix the issue that the user can click again on the btn and because of the alert he can see the cards for a long time until he press ok;
         btn.disabled = true;
-        elAllCards.forEach((card) => {
+        elAllCards.each((card) => {
             //check if the card is not flipped, if not then we flip it
             if (!card.hasClass("flipped")) {
                 card.addClass("flipped");
             }
             setTimeout(() => {
                 btn.disabled = false;
-                elAllCards.forEach((card) => {
+                elAllCards.each((card) => {
                     //if the card not contains a found class it means this class isn't found yet, and we remove it!
                     if (!card.hasClass("found")) {
                         //if we cheat and we a card already flipped i want this card to stay flipped
@@ -399,13 +399,13 @@ function pickMode(btn) {
             elWorstScoreSpan.innerText = formatCounterToTime(localStorage.getItem("worstScoreHard"));
             showCards(5000);
             //Show the cards for x amount of seconds
-            elAllCards.forEach((card) => {
+            elAllCards.each((card) => {
                 let dataCard = card.attr("data-card");
                 let possibleCards = "12345678910";
                 if (possibleCards.includes(dataCard)) {
-                    card.style.display = "flex";
+                    card.css("display", "flex");
                 } else {
-                    card.style.display = "none";
+                    card.css("display", "none");
                 }
                 if (card.hasClass("medium-mode") || card.hasClass("small-mode")) {
                     card.removeClass("medium-mode");
@@ -422,13 +422,13 @@ function pickMode(btn) {
             elBestScoreSpan.innerText = formatCounterToTime(localStorage.getItem("bestScoreMedium"));
             elWorstScoreSpan.innerText = formatCounterToTime(localStorage.getItem("worstScoreMedium"));
             showCards(3000);
-            elAllCards.forEach((card) => {
+            elAllCards.each((card) => {
                 let dataCard = card.attr("data-card");
                 let possibleCards = "123456";
                 if (possibleCards.includes(dataCard)) {
-                    card.style.display = "flex";
+                    card.css("display",  "flex");
                 } else {
-                    card.style.display = "none";
+                    card.css("display",  "none");
                 }
                 if (card.hasClass("large-mode") || card.hasClass("small-mode")) {
                     card.removeClass("large-mode");
@@ -445,13 +445,13 @@ function pickMode(btn) {
             elBestScoreSpan.innerText = formatCounterToTime(localStorage.getItem("bestScoreEasy"));
             elWorstScoreSpan.innerText = formatCounterToTime(localStorage.getItem("worstScoreEasy"));
             showCards(1500);
-            elAllCards.forEach((card) => {
+            elAllCards.each((card) => {
                 let dataCard = card.attr("data-card");
                 let possibleCards = "1234";
                 if (possibleCards.includes(dataCard)) {
-                    card.style.display = "flex";
+                    card.css("display",  "flex");
                 } else {
-                    card.style.display = "none";
+                    card.css("display",  "none");
                 }
                 if (card.hasClass("large-mode") || card.hasClass("medium-mode")) {
                     card.removeClass("large-mode");
