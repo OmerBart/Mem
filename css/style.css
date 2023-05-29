@@ -108,6 +108,7 @@
   }
   
   .card {
+    flex: 17%;
     width: 30%;
     height: 25%;
     position: relative;
@@ -116,6 +117,7 @@
     cursor: pointer;
     background-color: #f8f8f8;
     border-radius: 1rem;
+
   }
   
   /*Style of cards based of modes*/
