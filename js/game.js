@@ -576,6 +576,9 @@ function pickMode(btn) {
         break;
   }
 }
+function onCustompairs(ev){
+  prompt(ev);
+}
 
 //Load data from localStorage
 document.addEventListener("DOMContentLoaded", getLocalStorageData);
