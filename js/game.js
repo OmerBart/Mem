@@ -24,11 +24,16 @@ let gUser = "";
 //Number of card pairs
 let TOTAL_CARD_PAIRS = 6;
 
-// Generate cards based on the number of tiles
-const cards = [];
-for (let i = 1; i <= numTiles; i++) {
-  cards.push({id: i, src: `img${i}.jpg`});
-}
+// <div className="card" data-card="5" onClick="cardClicked(this)">
+//   <img src="cards/card5.png"/>
+//   <img className="back" src="cards/back.png" alt="">
+// </div>
+// <div className="card" data-card="5" onClick="cardClicked(this)">
+//   <img src="cards/card5.png"/>
+//   <img className="back" src="cards/back.png" alt="">
+// </div>
+
+
 let gCards = [
   // {id, src}
 ];
@@ -91,7 +96,7 @@ function cardClicked(elCard) {
   }
 }
 
-
+function renderCards() {}
 
 //Check if cards match and victory
 function checkCardsMatch(card1, card2) {
@@ -493,10 +498,9 @@ function pickMode(btn) {
     case "custom":
       gameMode = 4;
       let chosenPairs = elInputGetPairs.value;
-      if (chosenPairs <= 2 || chosenPairs >= 15) {
+      if (chosenPairs < 2 || chosenPairs > 15) {
         alert("Please choose between 2 and 15 pairs");
       }
       TOTAL_CARD_PAIRS = chosenPairs;
-
   }
 }
