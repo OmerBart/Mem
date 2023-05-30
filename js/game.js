@@ -22,7 +22,7 @@ const winAudio = new Audio("sound/win.mp3");
 let gUser = "";
 
 //Number of card pairs
-let TOTAL_CARD_PAIRS = 6;
+let TOTAL_CARD_PAIRS = 0;
 
 // <div className="card" data-card="5" onClick="cardClicked(this)">
 //   <img src="cards/card5.png"/>
@@ -39,6 +39,7 @@ function generateCards(numTiles) {
   const cards = [];
   for (let i = 1; i <= numTiles; i++) {
     cards.push({id: i, src: `cards/card${i}.png`});
+
   }
   // Duplicate the cards to create pairs and shuffle them
   gCards = shuffle([...cards, ...cards]);
@@ -139,7 +140,7 @@ function checkCardsMatch(card1, card2) {
     //add to both cards a 'found' class if they have been found in order to know that i dont need to flip them back in cheat mode.
     card1.classList.add("found");
     card2.classList.add("found");
-    if (flippedCards !== TOTAL_CARD_PAIRS) {
+    if (flippedCards != TOTAL_CARD_PAIRS) {
       correctAudio.play();
     }
     if (flippedCards === TOTAL_CARD_PAIRS) {
@@ -377,14 +378,22 @@ function stopWatch() {
 
 //Show the cards for a X amount of seconds in the beginning when we pick a mode.
 function showCards(amountOfSeconds) {
-  elAllCards.forEach((card) => {
+  flipCards();
+  setTimeout(() => {
+    unflipCards();
+  }, amountOfSeconds);
+}
+
+function flipCards() {
+  gCards.forEach((card) => {
     card.classList.add("flipped");
   });
-  setTimeout(() => {
-    elAllCards.forEach((card) => {
-      card.classList.remove("flipped");
-    });
-  }, amountOfSeconds);
+}
+
+function unflipCards() {
+  gCards.forEach((card) => {
+    card.classList.remove("flipped");
+  });
 }
 
 //This function handles the cheat feature
@@ -444,6 +453,9 @@ function pickMode(btn) {
       elWorstScoreSpan.innerText = formatCounterToTime(
           localStorage.getItem("worstScoreHard")
       );
+      generateCards(10);
+      pickModeContainer.classList.remove("show");
+      renderCards();
       showCards(5000);
       //Show the cards for x amount of seconds
       elAllCards.forEach((card) => {
@@ -462,7 +474,7 @@ function pickMode(btn) {
           card.classList.remove("small-mode");
         }
         card.classList.add("large-mode");
-        pickModeContainer.classList.remove("show");
+
       });
       break;
     case "medium":
@@ -475,6 +487,9 @@ function pickMode(btn) {
       elWorstScoreSpan.innerText = formatCounterToTime(
           localStorage.getItem("worstScoreMedium")
       );
+      generateCards(6);
+      pickModeContainer.classList.remove("show");
+      renderCards();
       showCards(3000);
       elAllCards.forEach((card) => {
         let dataCard = card.getAttribute("data-card");
@@ -492,7 +507,7 @@ function pickMode(btn) {
           card.classList.remove("small-mode");
         }
         card.classList.add("medium-mode");
-        pickModeContainer.classList.remove("show");
+
       });
       break;
     case "small":
@@ -505,6 +520,9 @@ function pickMode(btn) {
       elWorstScoreSpan.innerText = formatCounterToTime(
           localStorage.getItem("worstScoreEasy")
       );
+      generateCards(4);
+      pickModeContainer.classList.remove("show");
+      renderCards();
       showCards(1500);
       elAllCards.forEach((card) => {
         let dataCard = card.getAttribute("data-card");
@@ -522,7 +540,7 @@ function pickMode(btn) {
           card.classList.remove("medium-mode");
         }
         card.classList.add("small-mode");
-        pickModeContainer.classList.remove("show");
+
       });
       break;
     case "custom":
@@ -531,7 +549,7 @@ function pickMode(btn) {
       if (chosenPairs < 2 || chosenPairs > 15) {
         alert("Please choose between 2 and 15 pairs");
       }
-      TOTAL_CARD_PAIRS = chosenPairs;
+      TOTAL_CARD_PAIRS = + chosenPairs
       elGameModeSpan.innerText = `Custom Mode: (${chosenPairs} pairs)`;
       elBestScoreSpan.innerText = formatCounterToTime(
           localStorage.getItem("bestScore" + chosenPairs)
@@ -542,7 +560,7 @@ function pickMode(btn) {
       generateCards(chosenPairs);
       renderCards();
       pickModeContainer.classList.remove("show");
-      //showCards(1500);
+      showCards(1500);
 
   }
 }
