@@ -33,24 +33,54 @@ let TOTAL_CARD_PAIRS = 6;
 //   <img className="back" src="cards/back.png" alt="">
 // </div>
 
+let gCards = [];
+// Generate cards based on the number of tiles
+function generateCards(numTiles) {
+  const cards = [];
+  for (let i = 1; i <= numTiles; i++) {
+    cards.push({id: i, src: `cards/card${i}.png`});
+  }
+  // Duplicate the cards to create pairs and shuffle them
+  gCards = shuffle([...cards, ...cards]);
+}
+// Shuffle function (Fisher-Yates algorithm)
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 
-let gCards = [
-  // {id, src}
-];
+function renderTodos() {
+  const todos = getTodos();
+  const strHTMLs = todos.map((todo) => {
+    return `
+        <li class="todo-item">
+            <span class="todo-id">${todo.id}. </span>
+            <span class="todo-content">${todo.txt}</span>
+            <button class="btn delete-btn" onClick="onDeleteTodo(event, ${todo.id})">Delete</button>
+            <button class="btn btn-up" onClick="onChangeTodoInx(event, ${todo.id}, -1)">UP</button>
+            <button class="btn btn-down" onClick="onChangeTodoInx(event, ${todo.id}, 1)">DOWN</button>
+        </li>
+        `;
 
-// after gCARDS is ready, call function renderCards()
+  }).join('')
+  const elList = document.querySelector('.list')
+  elList.innerHTML = strHTMLs
+}
 
 function renderCards() {
   const elContainer = document.querySelector(".cards-container");
-  var strHTML = ``;
+  let strHTML = ``;
   gCards.map((card) => {
     return (strHTML += `
-    <div class="card" id=${card.id} onclick="cardClicked(this, ${card.id})">
-      <img src="cards/card${card.id}.png" />
+    <div class="card" data-card="${card.id}" onclick="cardClicked(this)">
+      <img src="${card.src}"/>
       <img class="back" src="cards/back.png" alt="">
-    </div> 
-      `).join(",");
-  });
+    </div> `)
+      // `).join(",");
+  }).join(",");
 
   elContainer.innerHTML = strHTML;
 }
@@ -96,7 +126,7 @@ function cardClicked(elCard) {
   }
 }
 
-function renderCards() {}
+
 
 //Check if cards match and victory
 function checkCardsMatch(card1, card2) {
@@ -502,6 +532,16 @@ function pickMode(btn) {
         alert("Please choose between 2 and 15 pairs");
       }
       TOTAL_CARD_PAIRS = chosenPairs;
+      elGameModeSpan.innerText = `Custom Mode: (${chosenPairs} pairs)`;
+      elBestScoreSpan.innerText = formatCounterToTime(
+          localStorage.getItem("bestScore" + chosenPairs)
+      );
+      elWorstScoreSpan.innerText = formatCounterToTime(
+          localStorage.getItem("worstScore" + chosenPairs)
+      );
+      generateCards(chosenPairs);
+      renderCards();
+      //showCards(1500);
 
   }
 }
