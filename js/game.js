@@ -502,5 +502,6 @@ function pickMode(btn) {
         alert("Please choose between 2 and 15 pairs");
       }
       TOTAL_CARD_PAIRS = chosenPairs;
+
   }
 }
