@@ -541,6 +541,7 @@ function pickMode(btn) {
       );
       generateCards(chosenPairs);
       renderCards();
+      pickModeContainer.classList.remove("show");
       //showCards(1500);
 
   }
