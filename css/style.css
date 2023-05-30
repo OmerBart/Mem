@@ -1,503 +1,538 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+header h1 {
+  font-family: cursive, sans-serif;
+  font-size: 4rem;
+  text-align: center;
+}
+
+header img {
+  width: 20rem;
+  height: 20rem;
+  margin: 0.5rem;
+}
+
+body {
+  background: #1d0458;
+  color: white;
+}
+
+.intro {
+  min-height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.information {
+  min-height: 10vh;
+  width: 50%;
+  margin: 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  border-radius: 1rem;
+  padding: 3rem;
+  position: relative;
+}
+
+.information .mode {
+  display: block;
+}
+
+.information #dashboard {
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  font-size: 1.5rem;
+  font-family: cursive;
+  letter-spacing: 3px;
+}
+.information p {
+  font-family: cursive, sans-serif;
+  padding: 3rem;
+  font-size: 2rem;
+}
+
+/*general style for the dashboard*/
+#score,
+#time,
+#worst-score,
+#timer {
+  font-size: 1.3rem;
+  margin: 0.5rem;
+}
+
+#time {
+  font-size: 2.5rem;
+  color: red;
+}
+
+#score,
+#worst-score {
+  font-size: 2.2rem;
+}
+
+#change-user {
+  background: #005b96;
+  color: white;
+  font-family: cursive;
+  border: 0;
+  outline: 0;
+  border-radius: 1rem;
+  transition: transform 1s ease;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+/*Card container style*/
+.cards-container {
+  /* min-height: 80vh; */
+  width: 750px;
+  height: 750px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.card {
+  width: 30%;
+  height: 25%;
+  position: relative;
+  margin: 1rem;
+  transition: all 1s ease;
+  cursor: pointer;
+  background-color: #f8f8f8;
+  border-radius: 1rem;
+}
+
+/*Style of cards based of modes*/
+.card.large-mode {
+  width: 22%;
+  height: 20%;
+}
+
+.card.medium-mode {
+  width: 22%;
+  height: 25%;
+}
+
+.card.small-mode {
+  width: 28%;
+  height: 30%;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  /*position the cards on top of each other*/
+  position: absolute;
+  border-radius: 1rem;
+}
+
+/*when the card div has been flipped add the animation*/
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+/*if the card has the class flipped then the card has been flipped*/
+.card.flipped .back {
+  display: none;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* border-top: 2px solid rgba(200, 200, 200, 0.4); */
+  width: 50%;
+  margin: 0.5rem auto;
+  text-align: center;
+  font-size: 3rem;
+  font-family: cursive, sans-serif;
+}
+
+.welcome p {
+  margin: 0.5rem;
+}
+
+.play-again-container.show,
+.pick-mode-container.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* .play-again-container.show .cheat button {
+  pointer-events: none;
+} */
+
+/*style for restart popup*/
+.play-again-container,
+.pick-mode-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  transition: all 0.5s ease;
+  z-index: 100;
+  transition: all 0.5s ease;
+  animation: fade 0.5s ease-in-out;
+}
+
+.play-popup h2 {
+  font-size: 3rem;
+  font-family: cursive;
+  margin: 0.5rem;
+  color: black;
+}
+
+.play-popup button {
+  background: black;
+  color: white;
+  padding: 1rem 2rem;
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  font-family: monospace, sans-serif;
+  font-size: 2.5rem;
+  width: 50%;
+  margin: auto;
+  cursor: pointer;
+}
+.play-popup {
+  background: #fff;
+  padding: 10rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.enter-name-form {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  gap: 1rem;
+  color: black;
+}
+
+.enter-name-form button {
+  background: #368fd3;
+}
+
+.enter-name-form input {
+  outline: none;
+  border:none;
+  padding:1rem;
+  border:1px solid black;
+  border-radius: 10px;
+}
+
+
+.btns-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/*style for pick-mode*/
+.pick-mode-popup {
+  text-align: center;
+  background: #fff;
+  justify-content: space-between;
+  padding: 5rem;
+  border-radius: 1rem;
+}
+
+.pick-mode-popup h3 {
+  font-size: 4rem;
+  font-family: monospace, sans-serif;
+  text-align: center;
+  margin: 0.5rem;
+  color: black;
+}
+
+.pick-mode-popup span {
+  font-size: 2rem;
+}
+
+.pick-mode-popup button {
+  padding: 1.5rem 5rem;
+  font-family: cursive, sans-serif;
+  border: 0;
+  outline: 0;
+  border-radius: 1rem;
+  cursor: pointer;
+  margin: 1rem;
+  color: white;
+  font-size: 2rem;
+}
+
+.pick-mode-popup button:hover {
+  opacity: 0.7;
+}
+
+/*style for pick-mode buttons*/
+#small {
+  background: #368fd3;
+}
+
+#medium {
+  background: #1d0458;
+}
+
+#large {
+  background: #9f41a4;
+}
+
+#custom {
+  background: #207480;
+}
+
+.cheat {
+  position: absolute;
+  left: 0;
+  margin: 2rem;
+  text-align: center;
+}
+
+.cheat h3 {
+  font-family: cursive;
+  font-size: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+#cheat-btn {
+  margin-top: 0.5rem;
+  background: black;
+  color: white;
+  outline: 0;
+  border: 0;
+  padding: 1.5rem 4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  font-family: cursive;
+  transition: all 2s ease;
+  font-size: 2rem;
+  animation: rainbow 3s infinite ease;
+}
+
+#cheat-btn:active {
+  transform: scale(0.9);
+}
+
+/*made with span*/
+#made {
+  display: block;
+  font-size: 1rem;
+  font-family: cursive;
+}
+
+/*animations*/
+@keyframes fade {
+  from {
+    opacity: 0;
   }
-  
-  html {
-    font-size: 62.5%;
-  }
-  
-  header h1 {
-    font-family: cursive, sans-serif;
-    font-size: 4rem;
-    text-align: center;
-  }
-  
-  header img {
-    width: 20rem;
-    height: 20rem;
-    margin: 0.5rem;
-  }
-  
-  body {
-    background: #1d0458;
-    color: white;
-  }
-  
-  .intro {
-    min-height: 10vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .information {
-    min-height: 10vh;
-    width: 50%;
-    margin: 1rem auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid white;
-    border-radius: 1rem;
-    padding: 3rem;
-    position: relative;
-  }
-  
-  .information .mode {
-    display: block;
-  }
-  
-  .information #dashboard {
-    position: absolute;
-    top: 0;
-    left: 1rem;
-    font-size: 1.5rem;
-    font-family: cursive;
-    letter-spacing: 3px;
-  }
-  .information p {
-    font-family: cursive, sans-serif;
-    padding: 1rem;
-    font-size: 2rem;
-  }
-  
-  /*general style for the dashboard*/
-  #score,
-  #time,
-  #worst-score,
-  #timer {
-    font-size: 1.3rem;
-    margin: 0.5rem;
-  }
-  
-  #time {
-    font-size: 2.5rem;
-    color: red;
-  }
-  
-  #score,
-  #worst-score {
-    font-size: 2.2rem;
-  }
-  
-  #change-user {
-    background: #005b96;
-    color: white;
-    font-family: cursive;
-    border: 0;
-    outline: 0;
-    border-radius: 1rem;
-    transition: transform 1s ease;
-    padding: 1rem 2rem;
-    cursor: pointer;
-    font-size: 1.5rem;
-  }
-  
-  /*Card container style*/
-  .cards-container {
-    /* min-height: 80vh; */
-    width: 750px;
-    height: 750px;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 auto;
-    perspective: 1000px;
-  }
-  
-  .card {
-    width: 30%;
-    height: 25%;
-    position: relative;
-    margin: 1rem;
-    transition: all 1s ease;
-    cursor: pointer;
-    background-color: #f8f8f8;
-    border-radius: 1rem;
-  }
-  
-  /*Style of cards based of modes*/
-  .card.large-mode {
-    width: 22%;
-    height: 20%;
-  }
-  
-  .card.medium-mode {
-    width: 22%;
-    height: 25%;
-  }
-  
-  .card.small-mode {
-    width: 28%;
-    height: 30%;
-  }
-  
-  .card img {
-    width: 100%;
-    height: 100%;
-    padding: 2rem;
-    /*position the cards on top of each other*/
-    position: absolute;
-    border-radius: 1rem;
-  }
-  
-  /*when the card div has been flipped add the animation*/
-  .card.flipped {
-    transform: rotateY(180deg);
-  }
-  
-  /*if the card has the class flipped then the card has been flipped*/
-  .card.flipped .back {
-    display: none;
-  }
-  
-  .welcome {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    /* border-top: 2px solid rgba(200, 200, 200, 0.4); */
-    width: 50%;
-    margin: 0.5rem auto;
-    text-align: center;
-    font-size: 3rem;
-    font-family: cursive, sans-serif;
-  }
-  
-  .welcome p {
-    margin: 0.5rem;
-  }
-  
-  .play-again-container.show,
-  .pick-mode-container.show {
-    display: flex;
+  to {
     opacity: 1;
   }
-  
-  /* .play-again-container.show .cheat button {
-    pointer-events: none;
-  } */
-  
-  /*style for restart popup*/
-  .play-again-container,
-  .pick-mode-container {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: none;
-    transition: all 0.5s ease;
-    z-index: 100;
-    transition: all 0.5s ease;
-    animation: fade 0.5s ease-in-out;
+}
+
+@keyframes rainbow {
+  0% {
+    background: #9f41a4;
   }
-  
-  .play-popup h2 {
-    font-size: 3rem;
-    font-family: cursive;
-    margin: 0.5rem;
-    color: black;
+  10% {
+    background: #ca1c1c;
   }
-  
-  .play-popup button {
-    background: black;
-    color: white;
-    padding: 1rem 2rem;
-    outline: none;
-    border: none;
-    border-radius: 0.5rem;
-    font-family: monospace, sans-serif;
-    font-size: 2.5rem;
-    width: 50%;
-    margin: auto;
-    cursor: pointer;
+
+  20% {
+    background: #3078c0;
   }
-  .play-popup {
-    background: #fff;
-    padding: 10rem;
-    border-radius: 1rem;
+
+  30% {
+    background: #30c03e;
+  }
+
+  40% {
+    background: #704300;
+  }
+  50% {
+    background: #5b013e;
+  }
+  60% {
+    background: #72d5f9;
+  }
+  70% {
+    background: #207480;
+  }
+  80% {
+    background: #fff41a;
+  }
+  90% {
+    background: #f60e92;
+  }
+  100% {
+    background: #21200a;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .information {
+    padding: 0rem;
     display: flex;
     flex-direction: column;
   }
-  
-  /*style for pick-mode*/
-  .pick-mode-popup {
-    text-align: center;
-    background: #fff;
-    display: inline-block;
-    padding: 5rem;
-    border-radius: 1rem;
+
+  .information p {
+    font-size: 1.5rem;
   }
-  
-  .pick-mode-popup h3 {
-    font-size: 4rem;
+
+  .cheat h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/*Media query*/
+@media screen and (max-width: 842px) {
+  html {
+    font-size: 45%;
+  }
+
+  .intro h1 {
+    font-size: 2.5rem;
+  }
+  .information {
+    width: 80%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #change-user {
+    padding: 1rem;
+    font-size: 2rem;
+  }
+
+  #made {
+    margin: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  #dashboard {
+    display: none;
+  }
+  .welcome {
+    display: block;
+  }
+  .welcome p {
+    font-size: 1.5rem;
+  }
+
+  #logo {
+    height: 10rem;
+    width: 10rem;
+  }
+
+  #time {
+    font-size: 2rem;
+  }
+  .cards-container {
+    /* min-height: 80vh; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  .card {
+    /* flex: 0 0 33%; */
+    width: 10%;
+    height: 20%;
+    margin: 1rem;
+  }
+
+  .card.medium-mode {
+    width: 28%;
+    height: 15%;
+  }
+
+  .card.small-mode {
+    width: 28%;
+    height: 15%;
+  }
+
+  .card.large-mode {
+    width: 28%;
+    height: 12%;
+  }
+
+  .cheat {
+    margin-top: 6rem;
+    position: relative;
     font-family: monospace, sans-serif;
+  }
+
+  .cheat h3 {
+    font-size: 2rem;
+    position: absolute;
+    right: 0;
+    left: 0;
+  }
+  #cheat-btn {
+    padding: 1.5rem 3rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+  }
+
+  .pick-mode-popup {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column !important;
+  }
+  .pick-mode-popup h3 {
+    font-size: 3.5rem;
+  }
+
+  .play-popup h2 {
+    font-size: 1.9rem;
+    font-family: cursive;
     margin: 0.5rem;
     color: black;
   }
-  
-  .pick-mode-popup span {
-    font-size: 2rem;
+
+  .play-popup button {
+    width: 100%;
   }
-  
-  .pick-mode-popup button {
-    padding: 1.5rem 5rem;
-    font-family: cursive, sans-serif;
-    border: 0;
-    outline: 0;
-    border-radius: 1rem;
-    cursor: pointer;
-    margin: 1rem;
-    color: white;
-    font-size: 2rem;
+
+  .play-popup {
+    padding: 6rem;
   }
-  
-  .pick-mode-popup button:hover {
-    opacity: 0.7;
-  }
-  
-  /*style for pick-mode buttons*/
-  #small {
-    background: #368fd3;
-  }
-  
-  #medium {
-    background: #1d0458;
-  }
-  
-  #large {
-    background: #9f41a4;
-  }
-  
-  .cheat {
-    position: absolute;
-    left: 0;
-    margin: 2rem;
-    text-align: center;
-  }
-  
-  .cheat h3 {
-    font-family: cursive;
-    font-size: 1.5rem;
-  }
-  
-  #cheat-btn {
-    margin-top: 0.5rem;
-    background: black;
-    color: white;
-    outline: 0;
-    border: 0;
-    padding: 1.5rem 4rem;
-    border-radius: 1rem;
-    cursor: pointer;
-    font-family: cursive;
-    transition: all 2s ease;
-    font-size: 2rem;
-    animation: rainbow 3s infinite ease;
-  }
-  
-  #cheat-btn:active {
-    transform: scale(0.9);
-  }
-  
-  /*made with span*/
-  #made {
-    display: block;
-    font-size: 1rem;
-    font-family: cursive;
-  }
-  
-  /*animations*/
-  @keyframes fade {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes rainbow {
-    0% {
-      background: #9f41a4;
-    }
-    10% {
-      background: #ca1c1c;
-    }
-  
-    20% {
-      background: #3078c0;
-    }
-  
-    30% {
-      background: #30c03e;
-    }
-  
-    40% {
-      background: #704300;
-    }
-    50% {
-      background: #5b013e;
-    }
-    60% {
-      background: #72d5f9;
-    }
-    70% {
-      background: #207480;
-    }
-    80% {
-      background: #fff41a;
-    }
-    90% {
-      background: #f60e92;
-    }
-    100% {
-      background: #21200a;
-    }
-  }
-  
-  @media screen and (max-width: 1440px) {
-    .information {
-      padding: 0rem;
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .information p {
-      font-size: 1.5rem;
-    }
-  
-    .cheat h3 {
-      font-size: 1.2rem;
-    }
-  }
-  
-  /*Media query*/
-  @media screen and (max-width: 842px) {
-    html {
-      font-size: 45%;
-    }
-  
-    .intro h1 {
-      font-size: 2.5rem;
-    }
-    .information {
-      width: 80%;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-    }
-  
-    #change-user {
-      padding: 1rem;
-      font-size: 2rem;
-    }
-  
-    #made {
-      margin: 0.5rem;
-      font-size: 1.2rem;
-    }
-  
-    #dashboard {
-      display: none;
-    }
-    .welcome {
-      display: block;
-    }
-    .welcome p {
-      font-size: 1.5rem;
-    }
-  
-    #logo {
-      height: 10rem;
-      width: 10rem;
-    }
-  
-    #time {
-      font-size: 2rem;
-    }
-    .cards-container {
-      /* min-height: 80vh; */
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-    }
-    .card {
-      /* flex: 0 0 33%; */
-      width: 10%;
-      height: 20%;
-      margin: 1rem;
-    }
-  
-    .card.medium-mode {
-      width: 28%;
-      height: 15%;
-    }
-  
-    .card.small-mode {
-      width: 28%;
-      height: 15%;
-    }
-  
-    .card.large-mode {
-      width: 28%;
-      height: 12%;
-    }
-  
-    .cheat {
-      margin-top: 6rem;
-      position: relative;
-      font-family: monospace, sans-serif;
-    }
-  
-    .cheat h3 {
-      font-size: 2rem;
-      position: absolute;
-      right: 0;
-      left: 0;
-    }
-    #cheat-btn {
-      padding: 1.5rem 3rem;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      text-align: center;
-      margin: auto;
-    }
-  
-    .pick-mode-popup {
-      padding: 4rem;
-      display: flex;
-      flex-direction: column;
-    }
-    .pick-mode-popup h3 {
-      font-size: 3.5rem;
-    }
-  
-    .play-popup h2 {
-      font-size: 1.9rem;
-      font-family: cursive;
-      margin: 0.5rem;
-      color: black;
-    }
-  
-    .play-popup button {
-      width: 100%;
-    }
-  
-    .play-popup {
-      padding: 6rem;
-    }
-  }
+}

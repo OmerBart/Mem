@@ -7,136 +7,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="assets/monsters.svg" />
-    <title>Memory Game</title>
+    <title>Memory Game | CA</title>
 </head>
 
-<body>
-    <header>
-        <div class="intro">
-            <h1>Memory Cards Game </h1>
-            <img id="logo" src="assets/pepe1.png" alt="logo">
-        </div>
-        <div class="welcome">
-            <button id="change-user" onclick="changeUser()">♲ Change User</button>
-            <p><span id="name"></span></p>
-        </div>
-        <div class="information">
-            <!-- <span id="dashboard">Dashboard</span> -->
-            <p>🏆 Best Score:<span id="score"></span></p>
-            <p> 👻 Worst Score:<span id="worst-score"></span></p>
-            <p>⏲️ Time:<span id="time">Game has not started</span></p>
-            <p class="mode">Mode: <span id="game-mode"></span></p>
-        </div>
-    </header>
-    <div class="cards-container">
-        <div class="card" data-card="1" onclick="cardClicked(this)">
-            <img src="cards/card1.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card" data-card="2" onclick="cardClicked(this)">
-            <img src="cards/card2.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-
-        </div>
-        <div class="card" data-card="3" onclick="cardClicked(this)">
-            <img src="cards/card3.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-
-        <div class="card" data-card="4" onclick="cardClicked(this)">
-            <img src="cards/card4.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card" data-card="5" onclick="cardClicked(this)">
-            <img src="cards/card5.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card" data-card="6" onclick="cardClicked(this)">
-            <img src="cards/card6.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card" data-card="4" onclick="cardClicked(this)">
-            <img src="cards/card4.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-
-        </div>
-        <div class="card" data-card="3" onclick="cardClicked(this)">
-            <img src="cards/card3.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-
-        </div>
-        <div class="card" data-card="2" onclick="cardClicked(this)">
-            <img src="cards/card2.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card" data-card="1" onclick="cardClicked(this)">
-            <img src="cards/card1.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card" data-card="5" onclick="cardClicked(this)">
-            <img src="cards/card5.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card" data-card="6" onclick="cardClicked(this)">
-            <img src="cards/card6.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <!--Expand to other modes-->
-        <div class="card large" data-card="7" onclick="cardClicked(this)">
-            <img src="cards/card7.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card large" data-card="7" onclick="cardClicked(this)">
-            <img src="cards/card7.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card large" data-card="8" onclick="cardClicked(this)">
-            <img src="cards/card8.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card large" data-card="8" onclick="cardClicked(this)">
-            <img src="cards/card8.png" />
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card large" data-card="9" onclick="cardClicked(this)">
-            <img src="cards/card9.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-
-        </div>
-        <div class="card large" data-card="9" onclick="cardClicked(this)">
-            <img src="cards/card9.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-        </div>
-        <div class="card large" data-card="10" onclick="cardClicked(this)">
-            <img src="cards/card10.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-
-        </div>
-        <div class="card large" data-card="10" onclick="cardClicked(this)">
-            <img src="cards/card10.png" alt="">
-            <img class="back" src="cards/back.png" alt="">
-        </div>
+<body onload="onInit()">
+<header>
+    <div class="intro">
+        <h1>Memory Card Game</h1>
+        <img id="logo" src="assets/pepe1.png" alt="logo">
+    </div>
+    <div class="welcome">
+        <button id="change-user" onclick="changeUser()">♲ Change User</button>
+        <p><span id="name"></span></p>
+    </div>
+    <div class="information">
+        <!-- <span id="dashboard">Dashboard</span> -->
+        <p>🏆 Best Score:<span id="score"></span></p>
+        <p> 👻 Worst Score:<span id="worst-score"></span></p>
+        <p>⏲️ Time:<span id="time">Game has not started</span></p>
+        <p class="mode">Mode: <span id="game-mode"></span></p>
+    </div>
+</header>
+<div class="cards-container">
+    <div class="card" data-card="1" onclick="cardClicked(this)">
+        <img src="cards/card1.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card" data-card="2" onclick="cardClicked(this)">
+        <img src="cards/card2.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
 
     </div>
-    <div class="play-again-container">
-        <div class="play-popup">
-            <h2> 🎉 Congratulations, You Won! 🎉 </h2>
-            <button class="restart-btn" onclick="restartGame()">Restart Game!</button>
-        </div>
+    <div class="card" data-card="3" onclick="cardClicked(this)">
+        <img src="cards/card3.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
     </div>
-    <div class="cheat">
-        <h3>You can peek on the cards 1 time</h3>
-        <button id="cheat-btn" onclick="cheat(this)">👀 Cheat</button>
+
+    <div class="card" data-card="4" onclick="cardClicked(this)">
+        <img src="cards/card4.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
     </div>
-    <div class="pick-mode-container">
-        <div class="pick-mode-popup">
-            <h3>Pick Game Mode</h3>
+    <div class="card" data-card="5" onclick="cardClicked(this)">
+        <img src="cards/card5.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card" data-card="6" onclick="cardClicked(this)">
+        <img src="cards/card6.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card" data-card="4" onclick="cardClicked(this)">
+        <img src="cards/card4.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card" data-card="3" onclick="cardClicked(this)">
+        <img src="cards/card3.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
+
+    </div>
+    <div class="card" data-card="2" onclick="cardClicked(this)">
+        <img src="cards/card2.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card" data-card="1" onclick="cardClicked(this)">
+        <img src="cards/card1.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card" data-card="5" onclick="cardClicked(this)">
+        <img src="cards/card5.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card" data-card="6" onclick="cardClicked(this)">
+        <img src="cards/card6.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <!--Expand to other modes-->
+    <div class="card large" data-card="7" onclick="cardClicked(this)">
+        <img src="cards/card7.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card large" data-card="7" onclick="cardClicked(this)">
+        <img src="cards/card7.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card large" data-card="8" onclick="cardClicked(this)">
+        <img src="cards/card8.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card large" data-card="8" onclick="cardClicked(this)">
+        <img src="cards/card8.png" />
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card large" data-card="9" onclick="cardClicked(this)">
+        <img src="cards/card9.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
+
+    </div>
+    <div class="card large" data-card="9" onclick="cardClicked(this)">
+        <img src="cards/card9.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+    <div class="card large" data-card="10" onclick="cardClicked(this)">
+        <img src="cards/card10.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
+
+    </div>
+    <div class="card large" data-card="10" onclick="cardClicked(this)">
+        <img src="cards/card10.png" alt="">
+        <img class="back" src="cards/back.png" alt="">
+    </div>
+
+</div>
+<div class="play-again-container">
+    <div class="play-popup">
+        <h2> 🎉 Congratulations, You Won! 🎉 </h2>
+        <button class="restart-btn" onclick="restartGame()">Restart Game!</button>
+    </div>
+</div>
+<div class="cheat">
+    <h3>You can peek on the cards 1 time</h3>
+    <button id="cheat-btn" onclick="cheat(this)">👀 Cheat</button>
+</div>
+<div class="pick-mode-container">
+    <div class="pick-mode-popup">
+        <label for="name-input">
+            Enter your name:
+        </label>
+        <input type="text" id="name-input" name="name-input" placeholder="Type here...">
+        <h3>Pick Game Mode</h3>
+        <div class="btns-group">
             <button id="small" onclick="pickMode(this)">Easy</button>
             <button id="medium" onclick="pickMode(this)">Medium</button>
             <button id="large" onclick="pickMode(this)">Hard</button>
+            <button id="custom" onclick="pickMode(this)">Custom</button>
+<!--            <input type="text" class="hidden" id="input-pairs" placeholder="Type here..." />-->
+            <label for="input-pairs"></label><input id="input-pairs" placeholder="Type here..." type="number"/>
         </div>
     </div>
-    <script src="js/game.js"></script>
+</div>
+<script src="js/game.js"></script>
 </body>
 
 </html>

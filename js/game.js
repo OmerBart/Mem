@@ -4,6 +4,7 @@ const playBtn = document.querySelector("#play-game");
 const playAgainContainer = document.querySelector(".play-again-container");
 const pickModeContainer = document.querySelector(".pick-mode-container");
 
+const elInputName = document.querySelector("#name-input");
 const elGameModeSpan = document.querySelector("#game-mode");
 
 const elNameSpan = document.querySelector("#name");
@@ -11,13 +12,44 @@ const elTimeSpan = document.querySelector("#time");
 const elBestScoreSpan = document.querySelector("#score");
 const elWorstScoreSpan = document.querySelector("#worst-score");
 
+const elInputGetPairs = document.getElementById("input-pairs");
+
 /*Load music*/
 const correctAudio = new Audio("sound/right.mp3");
 const wrongAudio = new Audio("sound/wrong.mp3");
 const winAudio = new Audio("sound/win.mp3");
 
+let gUser = "";
+
 //Number of card pairs
 let TOTAL_CARD_PAIRS = 6;
+
+// Generate cards based on the number of tiles
+const cards = [];
+for (let i = 1; i <= numTiles; i++) {
+  cards.push({id: i, src: `img${i}.jpg`});
+}
+let gCards = [
+  // {id, src}
+];
+
+// after gCARDS is ready, call function renderCards()
+
+function renderCards() {
+  const elContainer = document.querySelector(".cards-container");
+  var strHTML = ``;
+  gCards.map((card) => {
+    return (strHTML += `
+    <div class="card" id=${card.id} onclick="cardClicked(this, ${card.id})">
+      <img src="cards/card${card.id}.png" />
+      <img class="back" src="cards/back.png" alt="">
+    </div> 
+      `).join(",");
+  });
+
+  elContainer.innerHTML = strHTML;
+}
+
 let elPrevCard = null;
 let flippedCards = 0;
 //Control that only 2 cards can be flipped
@@ -58,6 +90,8 @@ function cardClicked(elCard) {
     elPrevCard = null;
   }
 }
+
+
 
 //Check if cards match and victory
 function checkCardsMatch(card1, card2) {
@@ -219,79 +253,42 @@ function formatCounterToTime(time) {
   return `${hours}:${minutes}:${seconds}`;
 }
 
-function changeUser() {
-  let name = prompt(`Please Enter your name`);
-  if (!name) {
-    name = "Anonymous";
-  }
-  localStorage.setItem("name", name);
-  elNameSpan.innerText = `${
-    name !== null
-      ? `Welcome, ${localStorage.getItem("name")} 😜 !`
-      : `Welcome,Anonymous! 💀`
-  }`;
-}
+// function changeUser() {
+//   let name = prompt(`Please Enter your name`);
+//   if (!name) {
+//     name = "Anonymous";
+//   }
+//   localStorage.setItem("name", name);
+//   elNameSpan.innerText = `${
+//     name !== null
+//       ? `Welcome, ${localStorage.getItem("name")} 😜 !`
+//       : `Welcome,Anonymous! 💀`
+//   }`;
+// }
 
-//load data from localStorage when page refreshes
+function onInit() {
+  pickModeContainer.classList.add("show");
+}
+// load data from localStorage when page refreshes
 function getLocalStorageData() {
   let user = localStorage.getItem("name");
+  if (!user) {
+  }
   elNameSpan.innerText = `${
-    user === null || user === ""
-      ? "Welcome Anonymous User!"
-      : `Welcome, ${user} 😜!`
+      user === null || user === ""
+          ? "Welcome Anonymous User!"
+          : `Welcome, ${user} 😜!`
   }`;
 
-  // //Show the current Best score and the current Worst score based on the game MODE!
-  // switch (gameMode) {
-  //   case 1:
-  //     let hardBestScore = formatCounterToTime(
-  //       localStorage.getItem('bestScoreHard')
-  //     );
-  //     elBestScoreSpan.innerText = `${
-  //       !hardBestScore === null ? 'None' : `${hardBestScore}`
-  //     }`;
-  //     let worstScoreHard = formatCounterToTime(
-  //       localStorage.getItem('worstScoreHard')
-  //     );
-  //     elWorstScoreSpan.innerText = `${
-  //       worstScoreHard === null ? 'None' : `${worstScoreHard}`
-  //     }`;
-  //     break;
-  //   case 2:
-  //     let mediumBestScore = formatCounterToTime(
-  //       localStorage.getItem('bestScoreMedium')
-  //     );
-  //     elBestScoreSpan.innerText = `${
-  //       mediumBestScore === null ? 'None' : `${mediumBestScore}`
-  //     }`;
-  //     let mediumWorstScore = formatCounterToTime(
-  //       localStorage.getItem('worstScoreMedium')
-  //     );
-  //     elWorstScoreSpan.innerText = `${
-  //       mediumWorstScore === null ? 'None' : `${mediumWorstScore}`
-  //     }`;
-  //     break;
-  //   case 3:
-  //     let easyBestScore = formatCounterToTime(
-  //       localStorage.getItem('bestScoreEasy')
-  //     );
-  //     elBestScoreSpan.innerText = `${
-  //       easyBestScore === null ? 'None' : `${easyBestScore}`
-  //     }`;
-  //     let easyWorstScore = formatCounterToTime(
-  //       localStorage.getItem('worstScoreEasy')
-  //     );
-  //     elWorstScoreSpan.innerText = `${
-  //       easyWorstScore === null ? 'None' : `${easyWorstScore}`
-  //     }`;
-  //     break;
+  pickModeContainer.classList.add("show");
+  shuffleCards();
 }
 
 //check if we already have a name, if not we get the user name
-if (localStorage.getItem("name") === null) {
-  pickModeContainer.classList.add("show");
-  changeUser();
-}
+// if (localStorage.getItem("name") === null) {
+//   pickModeContainer.classList.add("show");
+//   changeUser();
+// }
 
 /*Shuffle all Cards in random positions!*/
 function shuffleCards() {
@@ -333,7 +330,7 @@ function stopWatch() {
   }
   //add a leading 0 if seconds/minutes/hours is a 1 digit
   let displayMiliSeconds = `${
-    miliSeconds > 90 ? miliSeconds : `0${miliSeconds}`
+      miliSeconds > 90 ? miliSeconds : `0${miliSeconds}`
   }`;
   let displaySeconds = `${seconds < 10 ? `0${seconds}` : `${seconds}`}`;
   let displayMinutes = `${minutes < 10 ? `0${minutes}` : `${minutes}`}`;
@@ -396,6 +393,9 @@ function cheat(btn) {
 
 //Pick a game mode
 function pickMode(btn) {
+  if (elInputName.value === "") return;
+  gUser = elInputName.value;
+
   console.log(btn.id);
   switch (btn.id) {
     case "large":
@@ -404,10 +404,10 @@ function pickMode(btn) {
       //show current game-mode
       elGameModeSpan.innerText = `Hard`;
       elBestScoreSpan.innerText = formatCounterToTime(
-        localStorage.getItem("bestScoreHard")
+          localStorage.getItem("bestScoreHard")
       );
       elWorstScoreSpan.innerText = formatCounterToTime(
-        localStorage.getItem("worstScoreHard")
+          localStorage.getItem("worstScoreHard")
       );
       showCards(5000);
       //Show the cards for x amount of seconds
@@ -420,8 +420,8 @@ function pickMode(btn) {
           card.style.display = "none";
         }
         if (
-          card.classList.contains("medium-mode") ||
-          card.classList.contains("small-mode")
+            card.classList.contains("medium-mode") ||
+            card.classList.contains("small-mode")
         ) {
           card.classList.remove("medium-mode");
           card.classList.remove("small-mode");
@@ -435,10 +435,10 @@ function pickMode(btn) {
       gameMode = 2;
       elGameModeSpan.innerText = `Medium`;
       elBestScoreSpan.innerText = formatCounterToTime(
-        localStorage.getItem("bestScoreMedium")
+          localStorage.getItem("bestScoreMedium")
       );
       elWorstScoreSpan.innerText = formatCounterToTime(
-        localStorage.getItem("worstScoreMedium")
+          localStorage.getItem("worstScoreMedium")
       );
       showCards(3000);
       elAllCards.forEach((card) => {
@@ -450,8 +450,8 @@ function pickMode(btn) {
           card.style.display = "none";
         }
         if (
-          card.classList.contains("large-mode") ||
-          card.classList.contains("small-mode")
+            card.classList.contains("large-mode") ||
+            card.classList.contains("small-mode")
         ) {
           card.classList.remove("large-mode");
           card.classList.remove("small-mode");
@@ -465,10 +465,10 @@ function pickMode(btn) {
       TOTAL_CARD_PAIRS = 4;
       elGameModeSpan.innerText = `Easy`;
       elBestScoreSpan.innerText = formatCounterToTime(
-        localStorage.getItem("bestScoreEasy")
+          localStorage.getItem("bestScoreEasy")
       );
       elWorstScoreSpan.innerText = formatCounterToTime(
-        localStorage.getItem("worstScoreEasy")
+          localStorage.getItem("worstScoreEasy")
       );
       showCards(1500);
       elAllCards.forEach((card) => {
@@ -480,8 +480,8 @@ function pickMode(btn) {
           card.style.display = "none";
         }
         if (
-          card.classList.contains("large-mode") ||
-          card.classList.contains("medium-mode")
+            card.classList.contains("large-mode") ||
+            card.classList.contains("medium-mode")
         ) {
           card.classList.remove("large-mode");
           card.classList.remove("medium-mode");
@@ -490,11 +490,13 @@ function pickMode(btn) {
         pickModeContainer.classList.remove("show");
       });
       break;
+    case "custom":
+      gameMode = 4;
+      let chosenPairs = elInputGetPairs.value;
+      if (chosenPairs <= 2 || chosenPairs >= 15) {
+        alert("Please choose between 2 and 15 pairs");
+      }
+      TOTAL_CARD_PAIRS = chosenPairs;
+
   }
 }
-
-//Load data from localStorage
-document.addEventListener("DOMContentLoaded", getLocalStorageData);
-//show mode
-pickModeContainer.classList.add("show");
-shuffleCards();
