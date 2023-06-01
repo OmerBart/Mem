@@ -192,7 +192,7 @@ function restartGame() {
     //show pick mode container
     pickModeContainer.classList.add("show");
 }
-
+let NumOfPairs = 0;
 //set score and get stats from localStorage
 function gameStats(score) {
     //format the counter to time format 00:00:00
@@ -269,8 +269,34 @@ function gameStats(score) {
                 }
             }
             break;
+        case 4:
+            if (localStorage.getItem(`bestScoreCustom${NumOfPairs}`) === null) {
+                localStorage.setItem(`bestScoreCustom${NumOfPairs}`, score);
+                elBestScoreSpan.innerText = `${formatted}`;
+            }
+            const currCustomScore = localStorage.getItem(`bestScoreCustom${NumOfPairs}`);
+            //if the score is greater than the current hard score there is a new best score
+            if (score < currCustomScore) {
+                localStorage.setItem(`bestScoreCustom${NumOfPairs}`, score);
+                elBestScoreSpan.innerText = `${formatted}`;
+            } else {
+                //check if there is already a worst score in easy mode, if not set one
+                if (localStorage.getItem(`worstScoreCustom${NumOfPairs}`) === null) {
+                    localStorage.setItem(`worstScoreCustom${NumOfPairs}`, score);
+                    elWorstScoreSpan.innerText = `${formatted}`;
+                }
+                let currWorstScoreCustom = localStorage.getItem(`worstScoreCustom${NumOfPairs}`);
+                //check if the score is greater than the current worst score, if so we have a new worst score.
+                if (score > currWorstScoreCustom) {
+                    localStorage.setItem(`worstScoreCustom${NumOfPairs}`, score);
+                    elWorstScoreSpan.innerText = `${formatted}`;
+                }
+            }
+            break;
+
     }
 }
+
 
 //I have a counter, this function format seconds to hours/minutues/seconds nicely in order to display best score/worst score
 function formatCounterToTime(time) {
@@ -537,10 +563,12 @@ function pickMode(btn) {
             break;
         case "custom":
             gameMode = 4;
-            let chosenPairs = elInputGetPairs.value;
-            if (chosenPairs < 2 || chosenPairs > 15) {
-                alert("Please choose between 2 and 15 pairs");
-            }
+
+            let chosenPairs = getLegalPairs(elInputGetPairs.value);
+            // if (chosenPairs < 2 || chosenPairs > 15) {
+            //     alert("Please choose between 2 and 15 pairs");
+            // }
+            NumOfPairs = chosenPairs;
             TOTAL_CARD_PAIRS = + chosenPairs
             elGameModeSpan.innerText = `Custom Mode: (${chosenPairs} pairs)`;
             elBestScoreSpan.innerText = formatCounterToTime(
@@ -554,7 +582,17 @@ function pickMode(btn) {
 
             pickModeContainer.classList.remove("show");
             showCards(1500);
-
+            break;
     }
 
+}
+
+function getLegalPairs(inputPairs) {
+    let pairs = inputPairs;
+    if (pairs < 2 || pairs > 15 || pairs === null || pairs === "") {
+        pairs = prompt('Please enter a number between 2-15')
+        getLegalPairs(pairs)
+    }
+    console.log(pairs);
+    return pairs
 }
