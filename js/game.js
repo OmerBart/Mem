@@ -404,11 +404,11 @@ function stopWatch() {
 
 //Show the cards for a X amount of seconds in the beginning when we pick a mode.
 function showCards(amountOfSeconds) {
-    elAllCards.forEach((card) => {
+    gCards.forEach((card) => {
         card.classList.add("flipped");
     });
     setTimeout(() => {
-        elAllCards.forEach((card) => {
+        gCards.forEach((card) => {
             card.classList.remove("flipped");
         });
     }, amountOfSeconds);
