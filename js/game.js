@@ -450,14 +450,15 @@ function cheat(btn) {
         isCheated = true;
         //fix the issue that the user can click again on the btn and because of the alert he can see the cards for a long time until he press ok;
         btn.disabled = true;
-        elAllCards.forEach((card) => {
+        let tmp = document.querySelectorAll(".card");
+        tmp.forEach((card) => {
             //check if the card is not flipped, if not then we flip it
             if (!card.classList.contains("flipped")) {
                 card.classList.add("flipped");
             }
             setTimeout(() => {
                 btn.disabled = false;
-                elAllCards.forEach((card) => {
+                tmp.forEach((card) => {
                     //if the card not contains a found class it means this class isn't found yet, and we remove it!
                     if (!card.classList.contains("found")) {
                         //if we cheat and we a card already flipped i want this card to stay flipped
@@ -478,8 +479,18 @@ function cheat(btn) {
 //Pick a game mode
 function pickMode(btn) {
 
-    if (elInputName.value === "") return;
     gUser = elInputName.value;
+    // if (elInputName.value === "") return;
+    if (!gUser) {
+        gUser = "Anonymous";
+    }
+    localStorage.setItem("name", gUser);
+    elNameSpan.innerText = `${
+        gUser !== null
+            ? `Welcome, ${localStorage.getItem("name")} 😜 !`
+            : `Welcome,Anonymous! 💀`
+    }`;
+
 
     console.log(btn.id);
     switch (btn.id) {
