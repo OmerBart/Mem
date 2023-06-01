@@ -556,4 +556,5 @@ function pickMode(btn) {
             showCards(1500);
 
     }
+
 }
