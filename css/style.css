@@ -108,7 +108,7 @@ body {
 }
 
 .card {
-  width: 30%;
+  width: 20%;
   height: 25%;
   position: relative;
   margin: 1rem;
@@ -471,9 +471,9 @@ body {
   }
   .card {
     /* flex: 0 0 33%; */
-    width: 10%;
+    /*width: 10%;*/
 
-    height: 20%;
+    /*height: 20%;*/
     margin: 1rem;
   }
 
