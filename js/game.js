@@ -39,7 +39,6 @@ function generateCards(numTiles) {
   const cards = [];
   for (let i = 1; i <= numTiles; i++) {
     cards.push({id: i, src: `cards/card${i}.png`});
-
   }
   // Duplicate the cards to create pairs and shuffle them
   gCards = shuffle([...cards, ...cards]);
@@ -84,6 +83,7 @@ function renderCards() {
   }).join(",");
 
   elContainer.innerHTML = strHTML;
+
 }
 
 let elPrevCard = null;
@@ -378,22 +378,14 @@ function stopWatch() {
 
 //Show the cards for a X amount of seconds in the beginning when we pick a mode.
 function showCards(amountOfSeconds) {
-  flipCards();
-  setTimeout(() => {
-    unflipCards();
-  }, amountOfSeconds);
-}
-
-function flipCards() {
-  gCards.forEach((card) => {
+  elAllCards.forEach((card) => {
     card.classList.add("flipped");
   });
-}
-
-function unflipCards() {
-  gCards.forEach((card) => {
-    card.classList.remove("flipped");
-  });
+  setTimeout(() => {
+    elAllCards.forEach((card) => {
+      card.classList.remove("flipped");
+    });
+  }, amountOfSeconds);
 }
 
 //This function handles the cheat feature
@@ -559,6 +551,7 @@ function pickMode(btn) {
       );
       generateCards(chosenPairs);
       renderCards();
+
       pickModeContainer.classList.remove("show");
       showCards(1500);
 
