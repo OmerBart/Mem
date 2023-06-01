@@ -24,16 +24,8 @@ let gUser = "";
 //Number of card pairs
 let TOTAL_CARD_PAIRS = 0;
 
-// <div className="card" data-card="5" onClick="cardClicked(this)">
-//   <img src="cards/card5.png"/>
-//   <img className="back" src="cards/back.png" alt="">
-// </div>
-// <div className="card" data-card="5" onClick="cardClicked(this)">
-//   <img src="cards/card5.png"/>
-//   <img className="back" src="cards/back.png" alt="">
-// </div>
-
 let gCards = [];
+
 // Generate cards based on the number of tiles
 function generateCards(numTiles) {
     const cards = [];
@@ -43,6 +35,7 @@ function generateCards(numTiles) {
     // Duplicate the cards to create pairs and shuffle them
     gCards = shuffle([...cards, ...cards]);
 }
+
 // Shuffle function (Fisher-Yates algorithm)
 function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -51,7 +44,6 @@ function shuffle(arr) {
     }
     return arr;
 }
-
 
 
 function renderCards() {
@@ -82,9 +74,9 @@ let interval = null;
 //game mode
 let gameMode = null;
 
-elAllCards.forEach((card) => {
-    card.style.display = "none";
-});
+// elAllCards.forEach((card) => {
+//     card.style.display = "none";
+// });
 
 function cardClicked(elCard) {
     //Check if card is still flipped
@@ -110,7 +102,6 @@ function cardClicked(elCard) {
         elPrevCard = null;
     }
 }
-
 
 
 //Check if cards match and victory
@@ -149,7 +140,8 @@ function checkCardsMatch(card1, card2) {
 //this function rest all the neccessary things of the game
 function restartGame() {
     //Shuffle the cards
-    shuffleCards();
+    //shuffleCards();
+    shuffle(gCards);
     //Flip all the cards back and remove the found class from all
     elAllCards.forEach((card) => {
         card.classList.remove("flipped");
@@ -176,7 +168,9 @@ function restartGame() {
     //show pick mode container
     pickModeContainer.classList.add("show");
 }
-let NumOfPairs = 0;
+
+let NumOfPairs = null;
+
 //set score and get stats from localStorage
 function gameStats(score) {
     //format the counter to time format 00:00:00
@@ -299,22 +293,23 @@ function formatCounterToTime(time) {
     return `${hours}:${minutes}:${seconds}`;
 }
 
-// function changeUser() {
-//   let name = prompt(`Please Enter your name`);
-//   if (!name) {
-//     name = "Anonymous";
-//   }
-//   localStorage.setItem("name", name);
-//   elNameSpan.innerText = `${
-//     name !== null
-//       ? `Welcome, ${localStorage.getItem("name")} 😜 !`
-//       : `Welcome,Anonymous! 💀`
-//   }`;
-// }
+function changeUser() {
+    let name = prompt(`Please Enter your name`);
+    if (!name) {
+        name = "Anonymous";
+    }
+    localStorage.setItem("name", name);
+    elNameSpan.innerText = `${
+        name !== null
+            ? `Welcome, ${localStorage.getItem("name")} 😜 !`
+            : `Welcome,Anonymous! 💀`
+    }`;
+}
 
 function onInit() {
     pickModeContainer.classList.add("show");
 }
+
 // load data from localStorage when page refreshes
 function getLocalStorageData() {
     let user = localStorage.getItem("name");
@@ -331,10 +326,10 @@ function getLocalStorageData() {
 }
 
 //check if we already have a name, if not we get the user name
-// if (localStorage.getItem("name") === null) {
-//   pickModeContainer.classList.add("show");
-//   changeUser();
-// }
+if (localStorage.getItem("name") === null) {
+    pickModeContainer.classList.add("show");
+    changeUser();
+}
 
 /*Shuffle all Cards in random positions!*/
 function shuffleCards() {
@@ -350,6 +345,7 @@ let miliSeconds = 0;
 let seconds = 0;
 let minutes = 0;
 let hours = 0;
+
 function stopWatch() {
     //check if i flipped all cards, if so we stop the clock
     if (flippedCards === TOTAL_CARD_PAIRS) {
@@ -385,54 +381,55 @@ function stopWatch() {
     //Display the stopwatch
     elTimeSpan.innerText = `${displayHours}:${displayMinutes}:${displaySeconds}.${displayMiliSeconds}`;
 }
+
 function timer() {
-  //check if i flipped all cards, if so we stop the clock
-  if (flippedCards === TOTAL_CARD_PAIRS) {
-    clearInterval(interval);
-    console.log("interval cleaned");
-  }
-  miliSeconds -= 10;
-  if (miliSeconds <= 10) {
-    miliSeconds = 990;
-    counter--;
-    console.log("counter is", counter);
-    seconds--;
-    //if seconds /60 is 1 then rest seconds
-    if (seconds === 0) {
-      seconds = 60;
-      //start increment minutes
-      minutes--;
-      //if minutes / 60 is 1 then minutes also rest
-      if (minutes === 0) {
-        if (hours === 1) {
-          minutes = 60;
-          hours = 0;
-        }
-        else if (hours > 0) {
-          hours--;
-        }
-
-      }
+    //check if i flipped all cards, if so we stop the clock
+    if (flippedCards === TOTAL_CARD_PAIRS) {
+        clearInterval(interval);
+        console.log("interval cleaned");
     }
-  }
-  //add a leading 0 if seconds/minutes/hours is a 1 digit
-  let displayMiliSeconds = `${miliSeconds > 90 ? miliSeconds : `0${miliSeconds}`
-  }`;
-  let displaySeconds = `${seconds < 10 ? `0${seconds}` : `${seconds}`}`;
-  let displayMinutes = `${minutes < 10 ? `0${minutes}` : `${minutes}`}`;
-  let displayHours = `${hours < 10 ? `0${hours}` : `${hours}`}`;
+    miliSeconds -= 10;
+    if (miliSeconds <= 10) {
+        miliSeconds = 990;
+        counter--;
+        console.log("counter is", counter);
+        seconds--;
+        //if seconds /60 is 1 then rest seconds
+        if (seconds === 0) {
+            seconds = 60;
+            //start increment minutes
+            minutes--;
+            //if minutes / 60 is 1 then minutes also rest
+            if (minutes === 0) {
+                if (hours === 1) {
+                    minutes = 60;
+                    hours = 0;
+                } else if (hours > 0) {
+                    hours--;
+                }
 
-  //Display the stopwatch
-  elTimeSpan.innerText = `${displayHours}:${displayMinutes}:${displaySeconds}.${displayMiliSeconds}`;
+            }
+        }
+    }
+    //add a leading 0 if seconds/minutes/hours is a 1 digit
+    let displayMiliSeconds = `${miliSeconds > 90 ? miliSeconds : `0${miliSeconds}`
+    }`;
+    let displaySeconds = `${seconds < 10 ? `0${seconds}` : `${seconds}`}`;
+    let displayMinutes = `${minutes < 10 ? `0${minutes}` : `${minutes}`}`;
+    let displayHours = `${hours < 10 ? `0${hours}` : `${hours}`}`;
+
+    //Display the stopwatch
+    elTimeSpan.innerText = `${displayHours}:${displayMinutes}:${displaySeconds}.${displayMiliSeconds}`;
 }
 
 //Show the cards for a X amount of seconds in the beginning when we pick a mode.
 function showCards(amountOfSeconds) {
-    gCards.forEach((card) => {
+    let tmp = document.querySelectorAll(".card");
+    tmp.forEach((card) => {
         card.classList.add("flipped");
     });
     setTimeout(() => {
-        gCards.forEach((card) => {
+        tmp.forEach((card) => {
             card.classList.remove("flipped");
         });
     }, amountOfSeconds);
@@ -440,6 +437,7 @@ function showCards(amountOfSeconds) {
 
 //This function handles the cheat feature
 let isCheated = false;
+
 function cheat(btn) {
     console.log(btn);
     console.log("You can cheat 1 time");
@@ -593,8 +591,8 @@ function pickMode(btn) {
             // if (chosenPairs < 2 || chosenPairs > 15) {
             //     alert("Please choose between 2 and 15 pairs");
             // }
-            NumOfPairs = chosenPairs;
-            TOTAL_CARD_PAIRS = + chosenPairs
+            NumOfPairs = +chosenPairs;
+            TOTAL_CARD_PAIRS = +chosenPairs
             elGameModeSpan.innerText = `Custom Mode: (${chosenPairs} pairs)`;
             elBestScoreSpan.innerText = formatCounterToTime(
                 localStorage.getItem("bestScore" + chosenPairs)
@@ -612,8 +610,13 @@ function pickMode(btn) {
 
 
 }
-function onCustompairs(ev){
-  prompt(ev);
+
+gCards.forEach((card) => {
+    card.style.display = "none";
+});
+
+function onCustompairs(ev) {
+    prompt(ev);
 }
 
 function getLegalPairs(inputPairs) {
