@@ -464,29 +464,36 @@ body {
     /* min-height: 80vh; */
     display: flex;
     flex-wrap: wrap;
+
     justify-content: center;
     width: 100%;
+
   }
   .card {
     /* flex: 0 0 33%; */
     width: 10%;
+
     height: 20%;
     margin: 1rem;
   }
 
   .card.medium-mode {
+
     width: 28%;
     height: 15%;
   }
 
   .card.small-mode {
+
     width: 28%;
     height: 15%;
   }
 
+
   .card.large-mode {
     width: 28%;
     height: 12%;
+
   }
 
   .cheat {
