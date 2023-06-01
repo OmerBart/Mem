@@ -192,6 +192,7 @@ function restartGame() {
   //show pick mode container
   pickModeContainer.classList.add("show");
 }
+let NumOfPairs = 0;
 
 //set score and get stats from localStorage
 function gameStats(score) {
@@ -269,6 +270,8 @@ function gameStats(score) {
         }
       }
       break;
+    case 4:
+        if (localStorage.getItem(`bestScoreCustom${NumOfPairs}`) === null) {
   }
 }
 
@@ -538,6 +541,7 @@ function pickMode(btn) {
     case "custom":
       gameMode = 4;
       let chosenPairs = elInputGetPairs.value;
+      NumOfPairs = chosenPairs;
       if (chosenPairs < 2 || chosenPairs > 15) {
         alert("Please choose between 2 and 15 pairs");
       }
