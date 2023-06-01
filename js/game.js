@@ -310,20 +310,7 @@ function onInit() {
     pickModeContainer.classList.add("show");
 }
 
-// load data from localStorage when page refreshes
-function getLocalStorageData() {
-    let user = localStorage.getItem("name");
-    if (!user) {
-    }
-    elNameSpan.innerText = `${
-        user === null || user === ""
-            ? "Welcome Anonymous User!"
-            : `Welcome, ${user} 😜!`
-    }`;
 
-    pickModeContainer.classList.add("show");
-    shuffleCards();
-}
 
 //check if we already have a name, if not we get the user name
 if (localStorage.getItem("name") === null) {
@@ -331,14 +318,7 @@ if (localStorage.getItem("name") === null) {
     changeUser();
 }
 
-/*Shuffle all Cards in random positions!*/
-function shuffleCards() {
-    elAllCards.forEach((card) => {
-        //generate a random num
-        let randPosition = Math.floor(Math.random() * elAllCards.length);
-        card.style.order = `${randPosition}`;
-    });
-}
+
 
 //Stopwatch variables
 let miliSeconds = 0;
@@ -382,45 +362,6 @@ function stopWatch() {
     elTimeSpan.innerText = `${displayHours}:${displayMinutes}:${displaySeconds}.${displayMiliSeconds}`;
 }
 
-function timer() {
-    //check if i flipped all cards, if so we stop the clock
-    if (flippedCards === TOTAL_CARD_PAIRS) {
-        clearInterval(interval);
-        console.log("interval cleaned");
-    }
-    miliSeconds -= 10;
-    if (miliSeconds <= 10) {
-        miliSeconds = 990;
-        counter--;
-        console.log("counter is", counter);
-        seconds--;
-        //if seconds /60 is 1 then rest seconds
-        if (seconds === 0) {
-            seconds = 60;
-            //start increment minutes
-            minutes--;
-            //if minutes / 60 is 1 then minutes also rest
-            if (minutes === 0) {
-                if (hours === 1) {
-                    minutes = 60;
-                    hours = 0;
-                } else if (hours > 0) {
-                    hours--;
-                }
-
-            }
-        }
-    }
-    //add a leading 0 if seconds/minutes/hours is a 1 digit
-    let displayMiliSeconds = `${miliSeconds > 90 ? miliSeconds : `0${miliSeconds}`
-    }`;
-    let displaySeconds = `${seconds < 10 ? `0${seconds}` : `${seconds}`}`;
-    let displayMinutes = `${minutes < 10 ? `0${minutes}` : `${minutes}`}`;
-    let displayHours = `${hours < 10 ? `0${hours}` : `${hours}`}`;
-
-    //Display the stopwatch
-    elTimeSpan.innerText = `${displayHours}:${displayMinutes}:${displaySeconds}.${displayMiliSeconds}`;
-}
 
 //Show the cards for a X amount of seconds in the beginning when we pick a mode.
 function showCards(amountOfSeconds) {
@@ -626,9 +567,7 @@ gCards.forEach((card) => {
     card.style.display = "none";
 });
 
-function onCustompairs(ev) {
-    prompt(ev);
-}
+
 
 function getLegalPairs(inputPairs) {
     let pairs = inputPairs;
