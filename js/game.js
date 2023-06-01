@@ -52,23 +52,7 @@ function shuffle(arr) {
     return arr;
 }
 
-function renderTodos() {
-    const todos = getTodos();
-    const strHTMLs = todos.map((todo) => {
-        return `
-        <li class="todo-item">
-            <span class="todo-id">${todo.id}. </span>
-            <span class="todo-content">${todo.txt}</span>
-            <button class="btn delete-btn" onClick="onDeleteTodo(event, ${todo.id})">Delete</button>
-            <button class="btn btn-up" onClick="onChangeTodoInx(event, ${todo.id}, -1)">UP</button>
-            <button class="btn btn-down" onClick="onChangeTodoInx(event, ${todo.id}, 1)">DOWN</button>
-        </li>
-        `;
 
-    }).join('')
-    const elList = document.querySelector('.list')
-    elList.innerHTML = strHTMLs
-}
 
 function renderCards() {
     const elContainer = document.querySelector(".cards-container");
